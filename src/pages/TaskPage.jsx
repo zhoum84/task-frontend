@@ -6,6 +6,7 @@ function TaskPage({ task }) {
   const [status, setStatus] = useState(task.status);
   const [deadline, setDeadline] = useState(task.deadline);
   const [description, setDescription] = useState(task.description);
+  const statusElems = [...new Set(['Incomplete', 'In Progress', 'Completed'].map(p => p))]
 
   // edit task. Should toggle all texts
   const [editing, setEditing] = useState(false);
@@ -40,14 +41,14 @@ function TaskPage({ task }) {
                 />
               </h1>
               <h2>
-                <input
-                  className='font-italic m-3 mb-5 block px-4'
-                  type="text"
-                  placeholder="Change your status here"
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                />
               </h2>
+              <select
+                className="filter"
+                aria-label="filter"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)} >
+                {statusElems.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
               <h3>
                 Deadline:
                 <input

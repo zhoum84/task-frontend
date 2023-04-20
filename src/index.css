@@ -9,7 +9,7 @@
 body {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
-  
+
 }
 
 a {
@@ -250,11 +250,11 @@ h3 {
   transform: scale(0.98);
 }
 
-.dropdown{
+.dropdown {
   align-items: right;
 }
 
-.sort{
+.sort {
   width: 20%;
   padding: 7px;
   border: 1px solid #e6e6e6;
@@ -263,8 +263,8 @@ h3 {
   font-family: inherit;
 }
 
-.sorter{
-  left:100px;
+.sorter {
+  left: 100px;
   text-align: center;
 }
 
@@ -304,7 +304,7 @@ h3 {
   border-radius: 5px;
 }
 
-input {
+input, select {
   background-color: transparent;
   width: 20rem;
   border: .2rem solid #000000;
