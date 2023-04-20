@@ -1,12 +1,11 @@
-import {useState} from 'react'
-import {Link} from 'react-router-dom'
-import {FaQuestionCircle} from 'react-icons/fa'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FaQuestionCircle } from 'react-icons/fa'
 import Tasks from "./Tasks"
 
 function Home() {
 
-  // Need to get this from backend. Might need to move this to App.js
-  const [tasks, setTasks] = useState([
+  const mockTasks = [
     {
       _id: 1,
       title: 'Walk the dog',
@@ -27,21 +26,22 @@ function Home() {
       description: "The laundry machine is broken",
       status: "Complete",
       deadline: "4/18"
-    },
-  ]
-  )
+    },]
+
+  // Need to get this from backend. Might need to move this to App.js
+  const [tasks, setTasks] = useState(mockTasks)
+  
   return (
-    
     <>
-        <section className="heading">
-            <h1>All Tasks</h1>
-        </section>
+      <section className="heading">
+        <h1>All Tasks</h1>
+      </section>
 
-        <Link to='/add-task' className='btn btn-reverse btn-block'>
-            <FaQuestionCircle /> Add New Task
-        </Link>
+      <Link to='/add-task' className='btn btn-reverse btn-block'>
+        <FaQuestionCircle /> Add New Task
+      </Link>
 
-        <Tasks tasks={tasks} setTasks={setTasks}/>
+      <Tasks tasks={tasks} setTasks={setTasks} />
     </>
   )
 }

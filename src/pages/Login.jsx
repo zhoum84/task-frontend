@@ -52,7 +52,7 @@ function Login() {
               placeholder='Enter your name'
               required
             />
-          </div>          
+          </div>
           <div className='form-group'>
             <button className='btn btn-block'>Submit</button>
           </div>
