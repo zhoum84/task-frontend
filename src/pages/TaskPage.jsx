@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 function TaskPage(task) {
   const urlParams = useParams();
-  console.log(urlParams)
+  console.log("url from taskpage:", urlParams)
   const [currTask, setCurrTask] = useState([])
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function TaskPage(task) {
     fetch(url, opts)
       .then((res) => res.json())
       .then((data) => {
-        console.log("data: ", data);
+        console.log("data from task page: ", data);
         return data
       })
       .then((data) => setCurrTask(data))
@@ -36,7 +36,7 @@ function TaskPage(task) {
   const [title, setTask] = useState(currTask.title);
   const [status, setStatus] = useState(currTask.status);
   const [date_due, setdate_due] = useState(currTask.date_due);
-  console.log("task: ", currTask)
+  console.log("task from taskpage: ", currTask)
   const [description, setDescription] = useState(currTask.description);
   const statusElems = [...new Set(['Incomplete', 'In Progress', 'Completed'].map(p => p))]
 

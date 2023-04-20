@@ -2,31 +2,19 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaSignInAlt } from 'react-icons/fa'
 
-function Login() {
-  const [formData, setFormData] = useState({
-    username: '',
-  })
+function Login(props) {
 
-  const { username } = formData
-
+  const [formData, setFormData] = useState('')
   const navigate = useNavigate()
 
-
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
+  const handleChange = (e) => {
+    console.log("target val fron login: ", e.target.value)
+    props.sendRequest(e.target.value)
+    setFormData(e.target.value)
   }
-
   //get user data
   const onSubmit = (e) => {
     e.preventDefault()
-
-    const userData = {
-      username,
-    }
-
     navigate('/')
   }
 
@@ -43,13 +31,11 @@ function Login() {
         <form onSubmit={onSubmit}>
           <div className='form-group'>
             <input
-              type='username'
+              type='text'
               className='form-control'
-              id='username'
-              name='username'
-              value={username}
-              onChange={onChange}
-              placeholder='Enter your name'
+              value={formData}
+              onChange={handleChange}
+              placeholder='Enter your username'
               required
             />
           </div>

@@ -5,8 +5,9 @@ import Tasks from "./Tasks"
 
 function Home(props) {
 
-  // will need to be props.userId later
+  // will need to be props.user later
   const userId = "1"
+  console.log("props from home: ", props.user)
 
   const [tasks, setTasks] = useState([])
 
@@ -22,7 +23,7 @@ function Home(props) {
     fetch(url, opts)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        // console.log("data from home", data)
         return data
       })
       .then((data) => setTasks(data))

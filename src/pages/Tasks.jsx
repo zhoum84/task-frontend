@@ -16,9 +16,11 @@ function Tasks(props) {
     })
   }
 
+  const list = ['Deadline Ascending', 'Deadline Descending', 'Status Ascending', 'Status Descending', 'Title']
+
   return (
     <>
-      <BackButton />
+      {/* <BackButton /> */}
       <h1>Tasks</h1>
       <div className='dropdown'>
         <label className='dropdown' htmlFor='task'>Sort By</label>
@@ -29,12 +31,9 @@ function Tasks(props) {
           value={sort}
           onChange={(e) => setSort(e.target.value)}
         >
-          <option value='Deadline Ascending'>Deadline Ascending</option>
-          <option value='Deadline Descend'>Deadline Descending</option>
-          <option value='Status Ascending'>Status Ascending</option>
-          <option value='Status Descend'>Status Descending</option>
-          <option value='Title'>Title</option>
-
+          {list.map((item) => {
+            return <option key={item} value={item}>{item}</option>
+          })}
         </select>
       </div>
       <div className='tasks'>
@@ -44,7 +43,8 @@ function Tasks(props) {
           <div>Status</div>
           <div></div>
         </div>
-        {props.tasks && props.tasks.map((task) => (
+        {/* {props.tasks && props.tasks.map((task) => ( */}
+        {props.tasks.map((task) => (
           <div>
             <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} onToggle={changeStatus} /></Link>
             {/* <Link><Task key={task.id} task={task} /></Link> */}
