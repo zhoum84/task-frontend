@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 //import {useSelector} from 'react-redux'
 
 
-function AddTask() {
+function AddTask({data}) {
     const [task, setTask] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
@@ -14,7 +14,16 @@ function AddTask() {
     const onSubmit = (e) => {
         e.preventDefault()
     
-       
+        if (!task || !date) {
+            alert('Missing task or date')
+            return
+          }
+      
+          //this.props.history.location.data({ task, description, date  })
+      
+          setTask('')
+          setDescription('')
+          setDate('')
     
         navigate('/')
       }

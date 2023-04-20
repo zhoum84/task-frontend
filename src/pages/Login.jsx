@@ -3,31 +3,46 @@ import { useNavigate } from 'react-router-dom'
 import { FaSignInAlt } from 'react-icons/fa'
 
 function Login() {
-  const [formData, setFormData] = useState({
-    username: '',
-  })
+  const [username, setUsername] = useState('')
 
-  const { username } = formData
 
   const navigate = useNavigate()
 
 
   const onChange = (e) => {
-    setFormData((prevState) => ({
+    setUsername((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }))
   }
 
   //get user data
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
-    const userData = {
-      username,
-    }
 
-    navigate('/')
+    const res = await fetch(`https://challenge2-django.onrender.com/users/${username}`,{
+      method: 'GET'
+    })
+
+    let user = res.json();
+
+    //account creation
+    if (user === null)
+    {
+      const res2 = await fetch('https://challenge2-django.onrender.com/',{
+        method: 'POST',
+        body: {
+          'name': {username}
+        }
+      })
+
+      user = res2.json();
+    }
+    // feels a bit dumb to just pass around user data... 
+    // i was planning on using react redux + local storage but thats a bit annoying
+    // any alternatives?
+    navigate('/', {user})
   }
 
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import BackButton from '../components/BackButton'
 
-function TaskPage({task}){
+function TaskPage({task, user}){
 
     // edit task. Should toggle all texts
     const EditTask = () => {
@@ -12,6 +12,8 @@ function TaskPage({task}){
     const DeleteTask = () =>{
 
     }
+
+    
     return (
         <div className='task-page'>
           <header className='task-header'>

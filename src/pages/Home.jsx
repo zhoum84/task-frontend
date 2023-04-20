@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {FaQuestionCircle} from 'react-icons/fa'
 import Tasks from "./Tasks"
 
-function Home() {
+function Home({user}) {
 
   // Need to get this from backend. Might need to move this to App.js
   const [tasks, setTasks] = useState([
@@ -30,6 +30,26 @@ function Home() {
     },
   ]
   )
+
+  const addTask = async (newtask) => {
+    // const res = await fetch('http://localhost:5000/tasks', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-type': 'application/json',
+    //   },
+    //   body: JSON.stringify(task),
+    // })
+
+    // const data = await res.json()
+
+    // setTasks([...tasks, data])
+
+    const id = Math.floor(Math.random() * 10000) + 1
+    const newTask = { id, ...newtask }
+    setTasks([...tasks, newTask])
+  }
+
+  
   return (
     
     <>
@@ -37,7 +57,13 @@ function Home() {
             <h1>All Tasks</h1>
         </section>
 
-        <Link to='/add-task' className='btn btn-reverse btn-block'>
+        <Link to={{
+          pathname:'/add-task',
+          data:{
+            addTask: {addTask}
+          }
+            }} className='btn btn-reverse btn-block'>
+        
             <FaQuestionCircle /> Add New Task
         </Link>
 
