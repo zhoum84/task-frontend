@@ -303,3 +303,13 @@ h3 {
   padding: 10px 15px;
   border-radius: 5px;
 }
+
+input {
+  background-color: transparent;
+  width: 20rem;
+  border: .2rem solid #000000;
+  border-radius: 1rem;
+  margin: 1px 8px;
+  padding: 8px 20px;
+  box-sizing: border-box;
+}
