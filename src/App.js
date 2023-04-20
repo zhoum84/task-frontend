@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {useState} from 'react'
+import { useState } from 'react'
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Header from './components/Header'
 import AddTask from './pages/AddTask'
 import TaskPage from './pages/TaskPage'
+import Tasks from './pages/Tasks';
 function App() {
 
   // hard coded is bad. 
@@ -30,7 +31,9 @@ function App() {
       status: "Complete",
       deadline: "4/18"
     },
-  
+
+
+
   ])
   return (
     <>
@@ -41,10 +44,14 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/add-task' element={<AddTask />} />
-            <Route path='/task/1' element={<TaskPage task={task[0]}/>} />
-            <Route path='/task/2' element={<TaskPage task={task[1]}/>} />
-            <Route path='/task/3' element={<TaskPage task={task[2]}/>} />
+            <Route path='/task' element={<Home />} />
+            <Route path='/task/:id' element={<TaskPage />} />
+
+            {/* <Route path='/todos/:id/task/:number' element={<TaskPage />} /> */}
+            {/* <Route path='/task/2' element={<TaskPage task={task[1]} />} />
+            <Route path='/task/3' element={<TaskPage task={task[2]} />} /> */}
           </Routes>
+
         </div>
       </Router>
     </>

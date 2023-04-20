@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import BackButton from '../components/BackButton'
 import Task from '../components/Task'
+import { Link } from 'react-router-dom'
 
 function Tasks(props) {
   // TODO:: 
@@ -45,7 +46,8 @@ function Tasks(props) {
         </div>
         {props.tasks && props.tasks.map((task) => (
           <div>
-            <Task key={task.id} task={task} onToggle={changeStatus} />
+            <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} onToggle={changeStatus} /></Link>
+            {/* <Link><Task key={task.id} task={task} /></Link> */}
           </div>
         ))}
       </div>

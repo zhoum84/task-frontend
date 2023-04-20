@@ -1,11 +1,43 @@
 import { useEffect, useState } from 'react'
 import BackButton from '../components/BackButton'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useParams } from 'react-router-dom';
 
-function TaskPage({ task }) {
-  const [title, setTask] = useState(task.title);
-  const [status, setStatus] = useState(task.status);
-  const [deadline, setDeadline] = useState(task.deadline);
-  const [description, setDescription] = useState(task.description);
+
+function TaskPage(task) {
+  const urlParams = useParams();
+  console.log(urlParams)
+  const [currTask, setCurrTask] = useState([])
+
+  useEffect(() => {
+    const url = process.env.REACT_APP_API_URL + `todo_update/${urlParams.id}`;
+    const opts = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+    };
+
+    fetch(url, opts)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data: ", data);
+        return data
+      })
+      .then((data) => setCurrTask(data))
+  }, [])
+
+
+  const [title, setTask] = useState(currTask.title);
+  const [status, setStatus] = useState(currTask.status);
+  const [date_due, setdate_due] = useState(currTask.date_due);
+  console.log("task: ", currTask)
+  const [description, setDescription] = useState(currTask.description);
   const statusElems = [...new Set(['Incomplete', 'In Progress', 'Completed'].map(p => p))]
 
   // edit task. Should toggle all texts
@@ -42,14 +74,8 @@ function TaskPage({ task }) {
                 {statusElems.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </h3>
-            <h3>Deadline:
-              <input
-                className='font-italic m-3 mb-5 block px-4'
-                type="text"
-                placeholder="Edit deadline here"
-                value={deadline}
-                onChange={(e) => setDeadline(e.target.value)}
-              />
+            <h3>date_due:
+              <DatePicker selected={date_due} onChange={(e) => setdate_due(e)} />
             </h3>
             <hr />
             <div className='task-desc'>
@@ -71,7 +97,8 @@ function TaskPage({ task }) {
             <h2>
               <span className={`status status-${status}`}>{status}</span>
             </h2>
-            <h3>Deadline: {deadline}</h3>
+            {/* <h3>date_due: {date_due.toISOString().split('T')[0]}</h3> */}
+            <h3>date_due: {currTask.date_due}</h3>
             <hr />
             <div className='task-desc'>
               <h3>Task Description</h3>
