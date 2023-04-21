@@ -4,9 +4,12 @@ import * as React from 'react';
 // import * as ReactDOM from 'react-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch } from 'react-redux';
+import { updateTodos } from '../features/task/taskSlice';
 // import { useParams } from 'react-router-dom';
 
 function TaskPage(props) {
+  console.log("Tasks page props: ",props)
   const user = JSON.parse(localStorage.getItem("user"));
   const [task, setTask] = useState({})
   const [title, setTitle] = useState(task.title);
@@ -14,15 +17,7 @@ function TaskPage(props) {
   const [date_due, setDeadline] = useState(task.date_due);
   const [description, setDescription] = useState(task.description);
   const statusElems = [...new Set(['Not-Started', 'In-Progress', 'Completed'].map(p => p))]
-  const url = process.env.REACT_APP_API_URL + `todo_update/${user.id}`;
-  const opts = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Methods": "*",
-        "Access-Control-Allow-Headers": "Content-Type"
-      },
-    };
+
 
 
 
@@ -36,22 +31,10 @@ function TaskPage(props) {
     }
   }
 
-  useEffect(() => {
-    
-    fetch(url, opts)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("data from task page: ", data);
-        return data
-      })
-      .then((data) => {
-        setTask(data);
-        setTitle(data.title);
-        setStatus(checkStatus(data));
-        setDeadline(data.date_due);
-        setDescription(data.description);
-      })
-  }, [user,url])
+  const dispatch =useDispatch();
+  useEffect((id) => {
+    dispatch(updateTodos(id))
+  }, [dispatch])
 
   // edit task. Should toggle all texts
   const [editing, setEditing] = useState(false);
