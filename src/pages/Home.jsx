@@ -7,7 +7,6 @@ function Home(props) {
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
-    console.log("user from home:", props.user)
     const url = process.env.REACT_APP_API_URL + "todos/" + props.user;
     const opts = {
       method: "GET",
