@@ -36,7 +36,6 @@ function AddTask() {
       .then((data) => setTask(data))
       .finally(task ? navigate('/'): null)
 
-
     navigate('/')
   }
 
