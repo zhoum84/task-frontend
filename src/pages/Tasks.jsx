@@ -40,14 +40,14 @@ function Tasks(props) {
         <div className='task-headings'>
           <div>Deadline</div>
           <div>Task</div>
+          <div>Description</div>
           <div>Status</div>
-          <div></div>
         </div>
         {/* {props.tasks && props.tasks.map((task) => ( */}
         {props.tasks.map((task) => (
           <div>
-            <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} onToggle={changeStatus} /></Link>
-            {/* <Link><Task key={task.id} task={task} /></Link> */}
+            {/* <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} onToggle={changeStatus} /></Link> */}
+            <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} /></Link>
           </div>
         ))}
       </div>

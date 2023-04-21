@@ -4,15 +4,11 @@ import { FaQuestionCircle } from 'react-icons/fa'
 import Tasks from "./Tasks"
 
 function Home(props) {
-
-  // will need to be props.user later
-  const userId = "1"
-  console.log("props from home: ", props?.user)
-
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL + "todos/" + userId;
+    console.log("user from home:", props.user)
+    const url = process.env.REACT_APP_API_URL + "todos/" + props.user;
     const opts = {
       method: "GET",
       headers: {
@@ -23,7 +19,7 @@ function Home(props) {
     fetch(url, opts)
       .then((res) => res.json())
       .then((data) => {
-        // console.log("data from home", data)
+        console.log("data from home", data)
         return data
       })
       .then((data) => setTasks(data))

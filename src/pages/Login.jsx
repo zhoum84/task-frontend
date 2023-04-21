@@ -4,15 +4,14 @@ import { FaSignInAlt } from 'react-icons/fa'
 
 function Login(props) {
 
-  const [formData, setFormData] = useState('')
+  const [input, setInput] = useState('')
   const navigate = useNavigate()
 
   const handleChange = (e) => {
-    console.log("target val fron login: ", e.target.value)
     props.sendRequest(e.target.value)
-    setFormData(e.target.value)
+    setInput(e.target.value)
   }
-  
+
   //get user data
   const onSubmit = (e) => {
     e.preventDefault()
@@ -34,7 +33,7 @@ function Login(props) {
             <input
               type='text'
               className='form-control'
-              value={formData}
+              value={input}
               onChange={handleChange}
               placeholder='Enter your username'
               required
