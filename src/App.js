@@ -17,8 +17,8 @@ function App() {
         <div className='container'>
           <Header user={user} />
           <Routes>
-            <Route path='/' element={<Home user={user} />} />
-            <Route path='/login' element={<Login sendRequest={sendRequest} />} />
+            <Route path='/home' element={<Home user={user} />} />
+            <Route path='/' element={<Login sendRequest={sendRequest} />} />
             <Route path='/add-task' element={<AddTask user={user} />} />
             <Route path='/task/:id' element={<TaskPage user={user} />} />
           </Routes>

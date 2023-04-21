@@ -25,7 +25,7 @@ function Login(props) {
       .then((user) => {
         console.log(user);
         console.log('login successful ' + user.name)
-        navigate('/')
+        navigate('/home')
       })
       .catch( err => {console.log(err)})
   }
