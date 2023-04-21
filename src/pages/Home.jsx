@@ -33,9 +33,7 @@ function Home(props) {
 
         <Link to={{
           pathname:'/add-task',
-          data:{
-            addTask: {addTask}
-          }
+          
             }} className='btn btn-reverse btn-block'>
         
             <FaQuestionCircle /> Add New Task
