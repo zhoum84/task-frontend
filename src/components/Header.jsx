@@ -1,21 +1,29 @@
-import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { logout } from '../features/auth/authSlice.js'
+import { useEffect, useState } from 'react';
 
 function Header(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const username = JSON.parse(localStorage.getItem("user"));
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
 
+  const [user, setUser] = useState();
 
-  let user;
-  if(username !== null){
-    user = username.name;
-  }
+  useEffect(()=>{
+    if(username !== null){
+      console.log(username)
+    setUser(username.length? username[0].name : username.name);
+    setIsUserLoggedIn(true)
+  }},[setUser,username])
+  
 
   const onPress = () =>{
     dispatch(logout());
+    setUser('')
+    setIsUserLoggedIn(false)
     navigate('/');
   }
   return (
@@ -28,9 +36,9 @@ function Header(props) {
       </div>
       <ul>
         <li>
-          {!user ?
+          {!isUserLoggedIn ?
           <li>
-            <Link to='/home'>
+            <Link to='/'>
               <FaSignInAlt /> Login
             </Link>
           </li>
