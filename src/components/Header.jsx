@@ -16,12 +16,12 @@ function Header(props) {
 
   const onPress = () =>{
     dispatch(logout());
-    navigate('/login');
+    navigate('/');
   }
   return (
     <header className='header'>
       <div className='logo'>
-        <Link to='/'>Task Tracker </Link>
+        <Link to='/home'>Task Tracker </Link>
       </div>
       <div>
         {user}
@@ -30,7 +30,7 @@ function Header(props) {
         <li>
           {!user ?
           <li>
-            <Link to='/login'>
+            <Link to='/home'>
               <FaSignInAlt /> Login
             </Link>
           </li>
