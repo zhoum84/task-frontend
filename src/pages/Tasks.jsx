@@ -15,7 +15,7 @@ function Tasks(props) {
       }
     })
   }
-
+  
   const list = ['Deadline Ascending', 'Deadline Descending', 'Status Ascending', 'Status Descending', 'Title']
 
   return (

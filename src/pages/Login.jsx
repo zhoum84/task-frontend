@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { FaSignInAlt } from 'react-icons/fa'
 
 function Login(props) {
-
   const [input, setInput] = useState('')
   const navigate = useNavigate()
 
@@ -13,7 +12,7 @@ function Login(props) {
   }
 
   //get user data
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     navigate('/')
   }

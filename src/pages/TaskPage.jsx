@@ -6,7 +6,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from 'react-router-dom';
 
-
 function TaskPage(props) {
   const urlParams = useParams();
   const [task, setTask] = useState({})

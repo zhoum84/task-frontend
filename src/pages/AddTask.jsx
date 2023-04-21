@@ -10,14 +10,23 @@ function AddTask() {
 
   const navigate = useNavigate()
 
-  // Need to create new task and add to database
-  const onSubmit = (e) => {
-    e.preventDefault()
-
-
-
-    navigate('/')
-  }
+    // Need to create new task and add to database
+    const onSubmit = (e) => {
+        e.preventDefault()
+    
+        if (!task || !date) {
+            alert('Missing task or date')
+            return
+          }
+      
+          //this.props.history.location.data({ task, description, date  })
+      
+          setTask('')
+          setDescription('')
+          setDate('')
+    
+        navigate('/')
+      }
 
   return (
     <>

@@ -25,17 +25,21 @@ function Home(props) {
       .then((data) => setTasks(data))
   }, [])
 
-  // Need to get this from backend. Might need to move this to App.js
-
   return (
     <>
       <section className="heading">
         <h1>All Tasks</h1>
       </section>
 
-      <Link to='/add-task' className='btn btn-reverse btn-block'>
-        <FaQuestionCircle /> Add New Task
-      </Link>
+        <Link to={{
+          pathname:'/add-task',
+          data:{
+            addTask: {addTask}
+          }
+            }} className='btn btn-reverse btn-block'>
+        
+            <FaQuestionCircle /> Add New Task
+        </Link>
 
       <Tasks tasks={tasks} />
     </>
