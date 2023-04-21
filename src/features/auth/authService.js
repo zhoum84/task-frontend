@@ -1,0 +1,44 @@
+import axios from 'axios'
+
+const url = process.env.REACT_APP_API_URL;
+
+// Register user
+// const register = async (userData) => {
+//   const response = await axios.post(url + 'user_create', userData)
+
+//   if (response.data) {
+//     localStorage.setItem('user', JSON.stringify(response.data))
+//   }
+//   return response.data
+// }
+
+// Login user and register if not found
+const login = async (username) => {
+  
+  const response = await axios.get(url + 'users/' + username)
+
+  if (!response.data) {
+    console.log(response + " login!")
+    localStorage.setItem('user', JSON.stringify(response.data));
+    return response.data;
+  }
+  else{
+    const data = {
+      "name": username
+    };
+
+    const reg = await axios.post(url + 'user_create/', data);
+    localStorage.setItem('user', JSON.stringify(reg.data))
+    return reg.data;
+  }
+}
+
+// Logout user
+const logout = () => localStorage.removeItem('user')
+
+const authService = {
+  logout,
+  login,
+}
+
+export default authService

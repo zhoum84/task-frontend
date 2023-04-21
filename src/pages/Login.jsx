@@ -1,10 +1,15 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { FaSignInAlt } from 'react-icons/fa'
+import { login } from '../features/auth/authSlice'
+
 
 function Login(props) {
   const [input, setInput] = useState('')
+ 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     props.sendRequest(e.target.value)
@@ -14,8 +19,18 @@ function Login(props) {
   //get user data
   const onSubmit = async (e) => {
     e.preventDefault()
-    navigate('/')
+
+    dispatch(login(input))
+      .unwrap()
+      .then((user) => {
+        console.log(user);
+        console.log('login successful ' + user.name)
+        navigate('/')
+      })
+      .catch( err => {console.log(err)})
   }
+
+
 
   return (
     <>
