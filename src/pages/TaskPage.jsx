@@ -13,12 +13,12 @@ function TaskPage(props) {
   const [status, setStatus] = useState(checkStatus(task));
   const [date_due, setDeadline] = useState(task.date_due);
   const [description, setDescription] = useState(task.description);
-  const statusElems = [...new Set(['Not-Started', 'In-Progress', 'Completed'].map(p => p))]
+  const statusElems = [...new Set(['Not-Started', 'In-Progress', 'Complete'].map(p => p))]
 
 
   function checkStatus(task) {
     if (task.completed) {
-      return 'Completed'
+      return 'Complete'
     } else if (task.in_progress) {
       return 'In-Progress'
     } else {
@@ -87,7 +87,7 @@ function TaskPage(props) {
               </select>
             </h3>
             <h3>Deadline:
-              <DatePicker selected={new Date(date_due)} onChange={(e) => setDeadline(e)} />
+              <DatePicker selected={date_due} onChange={(e) => setDeadline(e)} />
             </h3>
             <hr />
             <div className='task-desc'>
@@ -109,8 +109,7 @@ function TaskPage(props) {
             <h2>
               <span className={`status status-${status}`}>{status}</span>
             </h2>
-            {/* <h3>date_due: {date_due.toISOString().split('T')[0]}</h3> */}
-            {/* <h3>Deadline: {date_due}</h3> */}
+            <h3>Deadline: {date_due && date_due.toISOString().split('T')[0]}</h3>
             <hr />
             <div className='task-desc'>
               <h3>Task Description</h3>
@@ -121,12 +120,12 @@ function TaskPage(props) {
         </form>
       </header >
 
-      {editing ? (<></>) : (
+      {!editing &&
         <>
           <button onClick={EditTask} className='btn btn-block btn-edit'>Edit Task</button>
           <button onClick={DeleteTask} className='btn btn-block btn-danger'>Delete Task</button>
         </>
-      )}
+      }
 
     </div >
   )

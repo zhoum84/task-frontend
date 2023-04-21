@@ -15,7 +15,7 @@ function Tasks(props) {
       }
     })
   }
-  
+
   const list = ['Deadline Ascending', 'Deadline Descending', 'Status Ascending', 'Status Descending', 'Title']
 
   return (
@@ -43,11 +43,9 @@ function Tasks(props) {
           <div>Description</div>
           <div>Status</div>
         </div>
-        {/* {props.tasks && props.tasks.map((task) => ( */}
         {props.tasks.map((task) => (
           <div>
-            {/* <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} onToggle={changeStatus} /></Link> */}
-            <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} /></Link>
+            <Link to={`/task/${task.uuid}`}><Task key={task.id} task={task} /></Link>
           </div>
         ))}
       </div>
