@@ -4,8 +4,7 @@ import Task from '../components/Task'
 import { Link } from 'react-router-dom'
 
 function Tasks(props) {
-  // TODO:: 
-  // tasks should get from api instead
+  console.log("Props: ",props)
   const [sort, setSort] = useState('Sort By')
 
   const changeStatus = (id) => {
@@ -43,11 +42,10 @@ function Tasks(props) {
           <div>Description</div>
           <div>Status</div>
         </div>
-        {/* {props.tasks && props.tasks.map((task) => ( */}
         {props.tasks.map((task) => (
           <div>
-            {/* <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} onToggle={changeStatus} /></Link> */}
-            <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} /></Link>
+            <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} onToggle={changeStatus} /></Link>
+            {/* <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} /></Link> */}
           </div>
         ))}
       </div>

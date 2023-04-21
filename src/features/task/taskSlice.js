@@ -1,27 +1,102 @@
-import {createSlice, createAuthThunk} from "@reduxjs/toolkit"
-import taskService from './taskService'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios';
+const url = process.env.REACT_APP_API_URL;
 
-//TODO: link to api
 
-const initialState = {
-    tickets: [],
-    ticket: {},
-    isError: false,
-    isSuccess: false,
-    isLoading: false,
-    message: ''
-}
-
-export const taskSlice = createSlice({
-    name: 'task',
-    initialState,
-    reducers: {
-        reset: (state) => initialState
-    }, 
-    extraReducers: (builder) =>{
-
+export const viewTodo = createAsyncThunk('todos/fetchTodos', async (id, { rejectWithValue }) => {
+    try {
+      const response = await await axios.get(`${url}/todos/${id}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
-})
+  });
 
-export const {reset} = taskSlice.actions
-export default taskSlice.reducer
+  export const createTodos = createAsyncThunk(
+    'todos/create_todos',
+    async (data) => {
+        try{
+            return await axios.post(url + 'todo_create/',data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
+export const updateTodos = createAsyncThunk(
+    'todos/update_todos',
+    async (data,uuid) => {
+        try{
+            return await axios.put(url + 'todo_update/' + uuid,data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
+
+export const deleteTodos = createAsyncThunk(
+    'todos/update_todos',
+    async (uuid) => {
+        try{
+            return await axios.delete(url + 'todo_delete/' + uuid);
+        } catch(error) {
+            console.log(error)
+        }
+    }
+)
+
+export const viewTodos = createAsyncThunk(
+    'todos/update_todos',
+    async (uuid) => {
+        try {
+            const response =  await axios.get(url + 'view_todo/'+uuid)
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    
+    }
+)
+
+
+  const todoSlice = createSlice({
+    name: 'todos',
+    initialState: {
+      todos: [],
+      status: 'idle',
+      error: null,
+      isLoading: false, // add new state variable
+    },
+    reducers: {
+      // ...
+    },
+    extraReducers: {
+      [viewTodo.pending]: (state) => {
+        state.status = 'loading';
+        state.isLoading = true; // set loading state to true
+      },
+      [viewTodo.fulfilled]: (state, action) => {
+        state.status = 'succeeded';
+        state.todos = action.payload;
+        state.isLoading = false; // set loading state to false
+      },
+      [viewTodo.rejected]: (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+        state.isLoading = false; // set loading state to false
+      },
+    },
+  });
+
+  export const { addTodo, toggleTodo, deleteTodo } = todoSlice.actions;
+
+
+
+
+
+
+
+
+
+  export default todoSlice.reducer;
+
