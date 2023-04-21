@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import DatePicker from "react-datepicker";
-//import {useSelector} from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { viewTodo } from '../features/task/taskSlice'
+
 
 function AddTask() {
 
@@ -10,6 +12,7 @@ function AddTask() {
   const [date, setDate] = useState('');
   const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem("user"));
+  const dispatch = useDispatch();
 
   // Need to create new task and add to database
   const onSubmit = (e) => {
@@ -25,7 +28,7 @@ function AddTask() {
         title: task,
         date_due: date.toISOString().split('T')[0],
         description: description,
-        user:user.id
+        user:user[0].id
       }),
     };
     fetch(url, opts)
@@ -37,7 +40,8 @@ function AddTask() {
       .then((data) => setTask(data))
       .finally(task ? navigate('/'): null)
 
-    navigate('/')
+    dispatch(viewTodo(user[0].id))
+    navigate('/home')
   }
 
   return (

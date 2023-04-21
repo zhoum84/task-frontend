@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import BackButton from '../components/BackButton'
 import Task from '../components/Task'
 import { Link } from 'react-router-dom'
 
+
 function Tasks(props) {
-  console.log("Props: ",props)
   const [sort, setSort] = useState('Sort By')
 
   const changeStatus = (id) => {
@@ -45,7 +44,6 @@ function Tasks(props) {
         {props.tasks.map((task) => (
           <div>
             <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} onToggle={changeStatus} /></Link>
-            {/* <Link to={`/view_todo/${task.id}`}><Task key={task.id} task={task} /></Link> */}
           </div>
         ))}
       </div>

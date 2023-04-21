@@ -85,6 +85,17 @@ export const viewTodos = createAsyncThunk(
         state.error = action.payload;
         state.isLoading = false; // set loading state to false
       },
+      [createTodos.pending]: (state) => {
+        state.status = 'loading';
+      },
+      [createTodos.fulfilled]: (state, action) => {
+        state.status = 'succeeded';
+        state.todos.push(action.payload);
+      },
+      [createTodos.rejected]: (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      },
     },
   });
 
