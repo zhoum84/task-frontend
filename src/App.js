@@ -6,6 +6,7 @@ import Header from './components/Header'
 import AddTask from './pages/AddTask'
 import TaskPage from './pages/TaskPage'
 
+
 function App() {
 
   const [user, setUser] = useState('');
@@ -15,7 +16,7 @@ function App() {
     <>
       <Router>
         <div className='container'>
-          <Header user={user} />
+          <Header />
           <Routes>
             <Route path='/home' element={<Home user={user} />} />
             <Route path='/' element={<Login sendRequest={sendRequest} />} />

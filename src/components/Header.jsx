@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { logout } from '../features/auth/authSlice.js'
 import { useEffect, useState } from 'react';
 
-function Header(props) {
+function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const username = JSON.parse(localStorage.getItem("user"));
@@ -14,7 +14,6 @@ function Header(props) {
 
   useEffect(()=>{
     if(username !== null){
-      console.log(username)
     setUser(username.length? username[0].name : username.name);
     setIsUserLoggedIn(true)
   }},[setUser,username])

@@ -2,27 +2,23 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaQuestionCircle } from 'react-icons/fa'
 import Tasks from "./Tasks"
+import { viewTodo } from '../features/task/taskSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import TodoService from '../features/task/taskService'
 
-function Home(props) {
-  const [tasks, setTasks] = useState([])
+function Home() {
+  const tasks = useSelector(state => state.todos.todos)
+  
+  const username = JSON.parse(localStorage.getItem("user"));
+  console.log(username)
 
-  useEffect(() => {
-    const url = process.env.REACT_APP_API_URL + "todos/" + props.user;
-    const opts = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+  const dispatch = useDispatch()
 
-    fetch(url, opts)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("data from home", data)
-        return data
-      })
-      .then((data) => setTasks(data))
-  }, [])
+  useEffect(()=>{
+    dispatch(viewTodo(username[0].id))
+  })
+
+  console.log("task: ",tasks)
 
   return (
     <>
