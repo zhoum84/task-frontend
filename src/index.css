@@ -9,7 +9,7 @@
 body {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
-  
+
 }
 
 a {
@@ -127,6 +127,8 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.5s ease;
+
 }
 
 .btn svg {
@@ -213,9 +215,10 @@ h3 {
   font-size: 16px;
   text-align: center;
   cursor: pointer;
+  padding: 3px;
 }
 
-.status-Incomplete {
+.status-Not-Started {
   background-color: red;
   color: #fff;
   border-radius: 10px;
@@ -250,11 +253,11 @@ h3 {
   transform: scale(0.98);
 }
 
-.dropdown{
+.dropdown {
   align-items: right;
 }
 
-.sort{
+.sort {
   width: 20%;
   padding: 7px;
   border: 1px solid #e6e6e6;
@@ -263,8 +266,8 @@ h3 {
   font-family: inherit;
 }
 
-.sorter{
-  left:100px;
+.sorter {
+  left: 100px;
   text-align: center;
 }
 
@@ -281,7 +284,6 @@ h3 {
 }
 
 .task-page h2 {
-  display: flex;
   align-items: center;
   justify-content: space-between;
 }
@@ -302,4 +304,14 @@ h3 {
   border: 1px #ccc solid;
   padding: 10px 15px;
   border-radius: 5px;
+}
+
+input, select {
+  background-color: transparent;
+  width: 20rem;
+  border: .15rem solid #000000;
+  border-radius: .6rem;
+  margin: 1px 8px;
+  padding: 6px 20px;
+  box-sizing: border-box;
 }

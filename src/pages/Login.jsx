@@ -2,47 +2,19 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaSignInAlt } from 'react-icons/fa'
 
-function Login() {
-  const [username, setUsername] = useState('')
-
-
+function Login(props) {
+  const [input, setInput] = useState('')
   const navigate = useNavigate()
 
-
-  const onChange = (e) => {
-    setUsername((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
+  const handleChange = (e) => {
+    props.sendRequest(e.target.value)
+    setInput(e.target.value)
   }
 
   //get user data
   const onSubmit = async (e) => {
     e.preventDefault()
-
-
-    const res = await fetch(`https://challenge2-django.onrender.com/users/${username}`,{
-      method: 'GET'
-    })
-
-    let user = res.json();
-
-    //account creation
-    if (user === null)
-    {
-      const res2 = await fetch('https://challenge2-django.onrender.com/',{
-        method: 'POST',
-        body: {
-          'name': {username}
-        }
-      })
-
-      user = res2.json();
-    }
-    // feels a bit dumb to just pass around user data... 
-    // i was planning on using react redux + local storage but thats a bit annoying
-    // any alternatives?
-    navigate('/', {user})
+    navigate('/')
   }
 
   return (
@@ -58,16 +30,14 @@ function Login() {
         <form onSubmit={onSubmit}>
           <div className='form-group'>
             <input
-              type='username'
+              type='text'
               className='form-control'
-              id='username'
-              name='username'
-              value={username}
-              onChange={onChange}
-              placeholder='Enter your name'
+              value={input}
+              onChange={handleChange}
+              placeholder='Enter your username'
               required
             />
-          </div>          
+          </div>
           <div className='form-group'>
             <button className='btn btn-block'>Submit</button>
           </div>

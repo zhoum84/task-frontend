@@ -1,61 +1,35 @@
-import {useState} from 'react'
-import {Link} from 'react-router-dom'
-import {FaQuestionCircle} from 'react-icons/fa'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FaQuestionCircle } from 'react-icons/fa'
 import Tasks from "./Tasks"
 
-function Home({user}) {
+function Home(props) {
+  const [tasks, setTasks] = useState([])
 
-  // Need to get this from backend. Might need to move this to App.js
-  const [tasks, setTasks] = useState([
-    {
-      _id: 1,
-      title: 'Walk the dog',
-      description: "walk for a few hours",
-      status: "Incomplete",
-      deadline: "4/19"
-    },
-    {
-      _id: 2,
-      title: 'Cook lunch',
-      description: "Make sure it is edible",
-      status: "In-Progress",
-      deadline: "4/20"
-    },
-    {
-      _id: 2,
-      title: 'Do the laundry',
-      description: "The laundry machine is broken",
-      status: "Complete",
-      deadline: "4/18"
-    },
-  ]
-  )
+  useEffect(() => {
+    console.log("user from home:", props.user)
+    const url = process.env.REACT_APP_API_URL + "todos/" + props.user;
+    const opts = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-  const addTask = async (newtask) => {
-    // const res = await fetch('http://localhost:5000/tasks', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-type': 'application/json',
-    //   },
-    //   body: JSON.stringify(task),
-    // })
+    fetch(url, opts)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data from home", data)
+        return data
+      })
+      .then((data) => setTasks(data))
+  }, [])
 
-    // const data = await res.json()
-
-    // setTasks([...tasks, data])
-
-    const id = Math.floor(Math.random() * 10000) + 1
-    const newTask = { id, ...newtask }
-    setTasks([...tasks, newTask])
-  }
-
-  
   return (
-    
     <>
-        <section className="heading">
-            <h1>All Tasks</h1>
-        </section>
+      <section className="heading">
+        <h1>All Tasks</h1>
+      </section>
 
         <Link to={{
           pathname:'/add-task',
@@ -67,7 +41,7 @@ function Home({user}) {
             <FaQuestionCircle /> Add New Task
         </Link>
 
-        <Tasks tasks={tasks} setTasks={setTasks}/>
+      <Tasks tasks={tasks} />
     </>
   )
 }
