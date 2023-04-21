@@ -25,6 +25,7 @@ export const login = createAsyncThunk('auth/login', async (user) => {
 // Logout user
 export const logout = createAction('auth/logout', () => {
   authService.logout()
+  localStorage.removeItem("user")
   // return an empty object as our payload as we don't need a payload but the
   // prepare function requires a payload return
   return {}

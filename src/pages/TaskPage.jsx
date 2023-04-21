@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from 'react-router-dom';
 
 function TaskPage(props) {
-  const urlParams = useParams();
+  const user = JSON.parse(localStorage.getItem("user"));
   const [task, setTask] = useState({})
   const [title, setTitle] = useState(task.title);
   const [status, setStatus] = useState(checkStatus(task));
@@ -27,7 +27,7 @@ function TaskPage(props) {
   }
 
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL + `todo_update/${urlParams.id}`;
+    const url = process.env.REACT_APP_API_URL + `todo_update/${user.id}`;
     const opts = {
       method: "GET",
       headers: {

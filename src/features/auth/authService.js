@@ -7,8 +7,7 @@ const login = async (username) => {
   
   const response = await axios.get(url + 'users/' + username)
 
-  if (!response.data) {
-    console.log(response + " login!")
+  if (response.data.length !== 0) {
     localStorage.setItem('user', JSON.stringify(response.data));
     return response.data;
   }

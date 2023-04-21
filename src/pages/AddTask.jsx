@@ -9,6 +9,7 @@ function AddTask() {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const navigate = useNavigate()
+  const user = JSON.parse(localStorage.getItem("user"));
 
   // Need to create new task and add to database
   const onSubmit = (e) => {
@@ -24,7 +25,7 @@ function AddTask() {
         title: task,
         date_due: date.toISOString().split('T')[0],
         description: description,
-        user:1
+        user:user.id
       }),
     };
     fetch(url, opts)
