@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaQuestionCircle } from 'react-icons/fa'
 import Tasks from "./Tasks"
@@ -7,11 +7,11 @@ function Home(props) {
 
   // will need to be props.user later
   const userId = "1"
-  console.log("props from home: ", props.user)
+  console.log("props from home: ", props?.user)
 
   const [tasks, setTasks] = useState([])
 
-  useState(() => {
+  useEffect(() => {
     const url = process.env.REACT_APP_API_URL + "todos/" + userId;
     const opts = {
       method: "GET",

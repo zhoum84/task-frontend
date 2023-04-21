@@ -12,6 +12,7 @@ function Login(props) {
     props.sendRequest(e.target.value)
     setFormData(e.target.value)
   }
+  
   //get user data
   const onSubmit = (e) => {
     e.preventDefault()
