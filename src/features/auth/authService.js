@@ -2,16 +2,6 @@ import axios from 'axios'
 
 const url = process.env.REACT_APP_API_URL;
 
-// Register user
-// const register = async (userData) => {
-//   const response = await axios.post(url + 'user_create', userData)
-
-//   if (response.data) {
-//     localStorage.setItem('user', JSON.stringify(response.data))
-//   }
-//   return response.data
-// }
-
 // Login user and register if not found
 const login = async (username) => {
   

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit'
 import authService from './authService'
-// NOTE: use a extractErrorMessage function to save some repetition
 
 // Get user from localstorage
 const user = JSON.parse(localStorage.getItem('user'))
@@ -24,8 +23,6 @@ export const login = createAsyncThunk('auth/login', async (user) => {
 })
 
 // Logout user
-// NOTE: here we don't need a thunk as we are not doing anything async so we can
-// use a createAction instead
 export const logout = createAction('auth/logout', () => {
   authService.logout()
   // return an empty object as our payload as we don't need a payload but the
