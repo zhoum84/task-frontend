@@ -1,11 +1,23 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../features/auth/authSlice.js'
 
 function Header(props) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const username = JSON.parse(localStorage.getItem("user"));
-  const user = username.name;
 
-  console.log(user);
+
+  let user;
+  if(username !== null){
+    user = username.name;
+  }
+
+  const onPress = () =>{
+    dispatch(logout());
+    navigate('/login');
+  }
   return (
     <header className='header'>
       <div className='logo'>
@@ -16,9 +28,18 @@ function Header(props) {
       </div>
       <ul>
         <li>
-          <Link to='/login'>
-            <FaSignInAlt /> Login
-          </Link>
+          {!user ?
+          <li>
+            <Link to='/login'>
+              <FaSignInAlt /> Login
+            </Link>
+          </li>
+          : <li>
+              <button className='btn' onClick={onPress}> 
+                <FaSignOutAlt /> Logout
+              </button>
+            </li>
+           }
         </li>
       </ul>
     </header>
