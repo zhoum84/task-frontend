@@ -28,19 +28,18 @@ function AddTask() {
         title: task,
         date_due: date.toISOString().split('T')[0],
         description: description,
-        user:user[0].id
+        user:user.length ? user[0].id : user.id
       }),
     };
     fetch(url, opts)
       .then((res) => res.json())
       .then((data) => {
-          console.log(data)
           return data
         })
       .then((data) => setTask(data))
       .finally(task ? navigate('/'): null)
 
-    dispatch(viewTodo(user[0].id))
+    dispatch(viewTodo(user.length ? user[0].id : user.id))
     navigate('/home')
   }
 

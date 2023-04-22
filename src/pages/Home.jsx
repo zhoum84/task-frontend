@@ -13,7 +13,8 @@ function Home() {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(viewTodo(username[0].id))
+    dispatch(viewTodo(username.length? username[0].id: username.id))
+  // eslint-disable-next-line
   },[dispatch])
 
   return (

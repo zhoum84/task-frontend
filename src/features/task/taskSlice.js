@@ -3,9 +3,10 @@ import axios from 'axios';
 const url = process.env.REACT_APP_API_URL;
 
 
+
 export const viewTodo = createAsyncThunk('todos/fetchTodos', async (id, { rejectWithValue }) => {
     try {
-      const response = await await axios.get(`${url}todos/${id}`);
+      const response = await await axios.get(url+`todos/${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -25,9 +26,10 @@ export const viewTodo = createAsyncThunk('todos/fetchTodos', async (id, { reject
 
 export const updateTodos = createAsyncThunk(
     'todos/update_todos',
-    async (data,uuid) => {
+    async (data) => {
+        console.log("UUID: ",data['uuid'])
         try{
-            return await axios.put(url + 'todo_update/' + uuid,data);
+            return await axios.put(url + 'todo_update/'+data['uuid'] ,data['task']);
         } catch (error) {
             console.log(error)
         }
