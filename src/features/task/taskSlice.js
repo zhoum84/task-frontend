@@ -5,7 +5,7 @@ const url = process.env.REACT_APP_API_URL;
 
 export const viewTodo = createAsyncThunk('todos/fetchTodos', async (id, { rejectWithValue }) => {
     try {
-      const response = await await axios.get(`${url}/todos/${id}`);
+      const response = await await axios.get(`${url}todos/${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
