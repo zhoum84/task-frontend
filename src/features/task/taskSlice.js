@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 const url = process.env.REACT_APP_API_URL;
-
-
+const headers = {
+  "Content-Type" : "application/json",
+  "Access-Control-Request-Headers": "Content-Type"
+};
 
 export const viewTodo = createAsyncThunk('todos/fetchTodos', async (id, { rejectWithValue }) => {
     try {
@@ -29,7 +31,7 @@ export const updateTodos = createAsyncThunk(
     async (data) => {
         console.log("UUID: ",data['uuid'])
         try{
-            return await axios.put(url + 'todo_update/'+data['uuid'] ,data['task']);
+            return await axios.put(url + 'todo_update/'+data['uuid'] + '/' ,data['task'], { headers });
         } catch (error) {
             console.log(error)
         }
@@ -40,7 +42,7 @@ export const deleteTodos = createAsyncThunk(
     'todos/update_todos',
     async (uuid) => {
         try{
-            return await axios.delete(url + 'todo_delete/' + uuid);
+            return await axios.delete(url + 'todo_delete/' + uuid + '/');
         } catch(error) {
             console.log(error)
         }
