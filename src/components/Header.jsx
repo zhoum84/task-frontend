@@ -34,7 +34,6 @@ function Header() {
         {user}
       </div>
       <ul>
-        <li>
           {!isUserLoggedIn ?
           <li>
             <Link to='/'>
@@ -47,7 +46,6 @@ function Header() {
               </button>
             </li>
            }
-        </li>
       </ul>
     </header>
   )

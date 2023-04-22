@@ -23,8 +23,6 @@ function Login(props) {
     dispatch(login(input))
       .unwrap()
       .then((user) => {
-        console.log(user);
-        console.log('login successful ' + user.name)
         navigate('/home')
       })
       .catch( err => {console.log(err)})
