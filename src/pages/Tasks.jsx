@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Task from '../components/Task'
-import { Link } from 'react-router-dom'
 
 
 function Tasks(props) {
@@ -8,10 +7,16 @@ function Tasks(props) {
   const [sortValue, setSortValue] = useState()
   const [isListSorting, setIsListSorting] = useState(false)
 
-
-  const onClickView = (id) =>{
-    localStorage.setItem("task",JSON.stringify(props.tasks.filter(a => a['uuid'] === id)[0]))
+  function checkStatus(task) {
+    if (task.complete) {
+      return 'Completed'
+    } else if (task.in_progress) {
+      return 'In-Progress'
+    } else {
+      return 'Not-Started'
+    }
   }
+  
 
 const list = ['Deadline Ascending', 'Deadline Descending', 'Status Ascending', 'Status Descending', 'Title Ascending', 'Title Descending']
 
@@ -29,11 +34,11 @@ const list = ['Deadline Ascending', 'Deadline Descending', 'Status Ascending', '
       break;
       case ('Status Ascending'):
         setSortValue(list['Status Ascending'])
-        sortedValue = [...props.tasks].sort((a,b) => a.status > b.status ? 1 : -1,);
+        sortedValue = [...props.tasks].sort((a,b) => checkStatus(a) > checkStatus(b) ? 1 : -1,);
       break;
       case ('Status Descending'):
         setSortValue(list['Status Descending'])
-        sortedValue = [...props.tasks].sort((a,b) => a.status > b.status ? -1 : 1,);
+        sortedValue = [...props.tasks].sort((a,b) => checkStatus(a) > checkStatus(b) ? -1 : 1,);
       break;  
       case ('Deadline Ascending'):
         setSortValue(list['Deadline Ascending'])
@@ -80,12 +85,12 @@ const list = ['Deadline Ascending', 'Deadline Descending', 'Status Ascending', '
         {isListSorting? 
         (tasks.map((task) => (
           <div>
-            <Link to={`/task/${task.uuid}`} onClick={onClickView(task.uuid)}><Task key={task.id} task={task} /></Link>
+              <Task key={task.uuid} task={task} />
           </div>
         ))) : 
         (props.tasks.map((task) => (
           <div>
-            <Link to={`/task/${task.uuid}`} onClick={onClickView(task.uuid)}><Task key={task.id} task={task} /></Link>
+              <Task key={task.uuid} task={task} />
           </div>
         )))}
       </div>

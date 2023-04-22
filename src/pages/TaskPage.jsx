@@ -11,21 +11,20 @@ import { useNavigate } from 'react-router-dom';
 
 function TaskPage() {
   const task = JSON.parse(localStorage.getItem('task'));
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user.length? user[0].id : user.id;
+  const username = JSON.parse(localStorage.getItem("user"));
+  const user = username.length? username[0].id : username.id;
   const [title, setTitle] = useState(task.title);
-  const [status, setStatus] = useState(checkStatus(task));
   const [date_due, setDeadline] = useState(task.date_due);
   const [description, setDescription] = useState(task.description);
   const [complete, setComplete] = useState(task.complete)
-  const [inProgress, setInProgress] = useState(task.in_progress);
-  const statusElems = [...new Set(['Not-Started', 'In-Progress', 'Completed'].map(p => p))]
+  const [in_progress, setInProgress] = useState(task.in_progress);
+  
 
 
 
 
   function checkStatus(task) {
-    if (task.completed) {
+    if (task.complete) {
       return 'Completed'
     } else if (task.in_progress) {
       return 'In-Progress'
@@ -46,22 +45,25 @@ function TaskPage() {
       title,
       description,
       date_due,
-      status,
-      userId,
+      complete,
+      in_progress,
+      user,
     } 
     const data = {
        uuid : task.uuid,
        task : JSON.stringify(taskUpdate)
     }
+
+
     dispatch(updateTodos(data))
-    dispatch(viewTodo(userId))
+    dispatch(viewTodo(user))
     navigate('/home')
   }
 
   //delete task from database. return to home
   const DeleteTask = () => {
     dispatch(deleteTodos(task.uuid))
-    dispatch(viewTodo(userId))
+    dispatch(viewTodo(user))
     navigate('/home')
   }
 
@@ -80,7 +82,7 @@ function TaskPage() {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </h2>
-            <h3>Status:
+            {/* <h3>Status:
               <select
                 className="filter"
                 aria-label="filter"
@@ -88,9 +90,9 @@ function TaskPage() {
                 onChange={(e) => setStatus(e.target.value)} >
                 {statusElems.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
-            </h3>
+            </h3> */}
             <h3>Deadline:
-              <DatePicker selected={new Date(date_due)} onChange={(e) => setDeadline(e)} />
+              <DatePicker selected={new Date(date_due)} onChange={(e) => setDeadline(e.toISOString().split('T')[0])} />
             </h3>
             <hr />
             <div className='task-desc'>
@@ -106,12 +108,12 @@ function TaskPage() {
               <input
               type="checkbox"
               value={complete}
-              onChange={(e) => setComplete(e.target.value)}/>
+              onChange={() => setComplete(!complete)}/>
               <h3>In Progress</h3>
               <input
               type="checkbox"
-              value={inProgress}
-              onChange={(e) => setInProgress(e.target.value)}/>
+              value={in_progress}
+              onChange={() => setInProgress(!in_progress)}/>
 
             </div>
             <button onClick={handleSubmit} className='btn btn-block btn-edit'>Confirm</button>
@@ -121,7 +123,7 @@ function TaskPage() {
               <span>{title}</span>
             </h1>
             <h2>
-              <span className={`status status-${status}`}>{status}</span>
+              <span className={`status status-${checkStatus(task)}`}>{checkStatus(task)}</span>
             </h2>
              <h3>Deadline: {date_due}</h3>
             <hr />
