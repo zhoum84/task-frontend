@@ -28,7 +28,7 @@ function Header() {
   return (
     <header className='header'>
       <div className='logo'>
-        <Link to='/'>Task Tracker </Link>
+        <Link to={isUserLoggedIn? '/home' : '/'}>Task Tracker </Link>
       </div>
       <div>
         {user}
