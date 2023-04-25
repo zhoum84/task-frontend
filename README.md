@@ -1,12 +1,3 @@
-## TODO
-    - Wire up the frontend to the backend
-        - Todo: name, task creation, task deletion, task page generation, task properties changing :')
-    - Toggle status on click
-    - Make home screen the login screen
-    - Make "Sort By" actually work
-    - Create logout page
-    - Optional: AuthStatus guards (redirect to login page if not logged in)
-    
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
